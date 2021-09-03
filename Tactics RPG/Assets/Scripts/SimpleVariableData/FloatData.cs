@@ -15,7 +15,7 @@ public class FloatData : ScriptableObject
         value = num;
     }
 
-    public AddToValueZero(float num)
+    public void AddToValueZero(float num)
     {
         if (value <= 0)
         {

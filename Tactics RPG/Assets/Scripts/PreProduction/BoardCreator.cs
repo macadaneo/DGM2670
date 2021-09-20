@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 
 public class BoardCreator : MonoBehaviour
@@ -24,6 +28,7 @@ public class BoardCreator : MonoBehaviour
                 GameObject intance = Instantiate(tileSelectionIndicatorPrefab) as GameObject;
                 marker = intance.transform;
             }
+
             return marker;
         }
     }
@@ -39,8 +44,8 @@ public class BoardCreator : MonoBehaviour
         Rect r = RandomRect();
         ShrinkArea(r);
     }
-    
-    
+
+
     Rect RandomRect()
     {
         int x = UnityEngine.Random.Range(0, width);
@@ -114,7 +119,7 @@ public class BoardCreator : MonoBehaviour
         Tile t = tiles[p];
         t.Shrink();
 
-        if (t.height <=0)
+        if (t.height <= 0)
         {
             tiles.Remove(p);
             DestroyImmediate(t.gameObject);
@@ -137,6 +142,45 @@ public class BoardCreator : MonoBehaviour
         marker.localPosition = t != null ? t.center : new Vector3(pos.x, 0, pos.y);
     }
 
-}
+    public void Clear()
+    {
+        Tile t = tiles.ContainsKey(pos) ? tiles[pos] : null;
+        marker.localPosition = t != null ? t.center : new Vector3(pos.x, 0, pos.y);
+    }
 
+    public void Save()
+    {
+        string filePath = Application.dataPath + "/Resaorces/Levels";
+        if (!Directory.Exists(filePath))
+            CreateSaveDirectory();
+
+        LevelData board = ScriptableObject.CreateInstance < levelData();
+        board.tiles = new List<Vector3>(tiles.Count);
+        foreach (Tile t in tiles.Values)
+        {
+            board.tiles.Add( new Vector3(t.pos.x, t.height, t.pos.y));
+        }
+
+        string fileName = string.Format("Assests/Resources/Levels/(1).asset", filePath, name);
+        AssetDatabase.CreateAsset(board, fileName);
+    }
+
+    void CreateSaveDirectory()
+    {
+        string filePath = Application.dataPath + "/Resources";
+        if (!Directory.Exists(filePath))
+        {
+            AssetDatabase.CreateFolder("Assets", "Resources");
+        }
+        
+        filePath += "/Levels";
+
+        if (!Directory.Exists(filePath))
+        {
+            AssetDatabase.CreateFolder("Assets/Resources", "Levels");
+        }
+        
+        AssetDatabase.Refresh();
+    }
+}
 

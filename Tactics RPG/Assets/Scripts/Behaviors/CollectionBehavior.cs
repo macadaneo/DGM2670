@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-public class CollectionBehavior : MonoBehaviour
+public class CollectionBehaviour : MonoBehaviour
 {
     private GameObject art;
     private SpriteRenderer artSpriteRenderer;
     public CollectableSO collectedObj;
-    public CollectionsSO collection;
+   // public CollectionSO collection;
 
-    void Awake()
+    private void Awake()
     {
-     ConfigCollectable();
+        ConfigCollectable();
     }
 
     public void SwapCollectable(CollectableSO collectable)
@@ -21,27 +21,25 @@ public class CollectionBehavior : MonoBehaviour
     
     private void ConfigCollectable()
     {
-        art = GetComponent<Transform>().gameObject;
+        art = GetComponentInChildren<Transform>().gameObject;
         artSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (artSpriteRenderer != null)
         {
-            //artSpriteRenderer.sprite = collectedObj.art2D;
-            //artSpriteRenderer.color = collectedObj.artColorTint;
+           // artSpriteRenderer.sprite = collectedObj.art2D;
+          //  artSpriteRenderer.color = collectedObj.artColorTint;
         }
         EnableDisableCollectable(!collectedObj.collected);
-
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        collection.Collect(collectedObj);
+        //collection.Collect(collectedObj);
         EnableDisableCollectable(false);
     }
 
-
     private void EnableDisableCollectable(bool value)
     {
-        //ArticulationBody.SetActive(value);
+        art.SetActive(value);
         GetComponent<Collider>().enabled = value;
     }
 }

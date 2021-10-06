@@ -15,12 +15,26 @@ public class InputController : MonoBehaviour
                 moveEvent(this, new InfoEventArgs<Point>(new Point(x, y)));
             }
         }
+
+        for (int i = 0; i < 3; ++i)
+        {
+            if (Input.GetButtonUp(_buttons[i]))
+            {
+                if (fireEvent != null)
+                {
+                    fireEvent(this, new InfoEventArgs<int>(i));
+                }
+            }
+        }
+        
     }
 
     private Repeater _hor = new Repeater("Horizontal");
     private Repeater _ver = new Repeater("Vertical");
 
     public static event EventHandler<InfoEventArgs<Point>> moveEvent;
+    public static event EventHandler<InfoEventArgs<int>> fireEvent; 
+    private string[] _buttons = new string[] { "Fire1", "Fire2", "Fire3" };
 }
 
 class Repeater

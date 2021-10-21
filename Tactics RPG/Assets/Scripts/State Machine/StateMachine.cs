@@ -53,7 +53,4 @@ public class StateMachine : MonoBehaviour
             }
             _inTransition = false;
         }
-        
-        
-    
 }

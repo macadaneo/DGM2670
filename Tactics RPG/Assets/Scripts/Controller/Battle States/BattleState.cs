@@ -13,8 +13,8 @@ public abstract class BattleState : State
     }
     public Board board
     {
-        get { return owner.levelData;}
-    }
+        get { return owner.levelData;} 
+    } 
     public LevelData levelData
     {
         get { return owner.levelData; }
@@ -56,7 +56,6 @@ public abstract class BattleState : State
     {
         
     }
-
     protected virtual void SelectTile(Point p)
     {
         if (pos == p || !BoardCreator.tiles.ContainsKey(p))

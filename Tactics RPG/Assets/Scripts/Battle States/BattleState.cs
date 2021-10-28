@@ -7,14 +7,14 @@ using UnityEngine;
 public abstract class BattleState : State
 {
     protected BattleController owner;
-    public CamerRig cameraRig
+    /*public CamerRig cameraRig
     {
         get { return owner.board; }
-    }
+    } 
     public Board board
     {
         get { return owner.levelData;} 
-    } 
+    } */
     public LevelData levelData
     {
         get { return owner.levelData; }
@@ -56,7 +56,7 @@ public abstract class BattleState : State
     {
         
     }
-    protected virtual void SelectTile(Point p)
+   /* protected virtual void SelectTile(Point p)
     {
         if (pos == p || !BoardCreator.tiles.ContainsKey(p))
         {
@@ -65,5 +65,5 @@ public abstract class BattleState : State
 
         pos = p;
         tileSelectionIndicator.localPosition = BoardCreator.tiles[p].center;
-    }
+    } */
 }

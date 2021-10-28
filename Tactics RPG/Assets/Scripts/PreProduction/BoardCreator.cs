@@ -22,7 +22,7 @@ public class BoardCreator : MonoBehaviour
 		{
 			if (_marker == null)
 			{
-				GameObject instance = Instantiate(tileSelectionIndicatorPrefab) as GameObject;
+				GameObject instance = Instantiate(tileSelectionIndicatorPrefab);
 				_marker = instance.transform;
 			}
 			return _marker;
@@ -63,7 +63,9 @@ public class BoardCreator : MonoBehaviour
 	public void Clear ()
 	{
 		for (int i = transform.childCount - 1; i >= 0; --i)
+		{
 			DestroyImmediate(transform.GetChild(i).gameObject);
+		}
 		tiles.Clear();
 	}
 
@@ -71,14 +73,18 @@ public class BoardCreator : MonoBehaviour
 	{
 		string filePath = Application.dataPath + "/Resources/Levels";
 		if (!Directory.Exists(filePath))
-			CreateSaveDirectory ();
-		
+		{
+			CreateSaveDirectory();
+		}
+
 		LevelData board = ScriptableObject.CreateInstance<LevelData>();
 		board.tiles = new List<Vector3>( tiles.Count );
 		foreach (Tile t in tiles.Values)
-			board.tiles.Add( new Vector3(t.pos.x, t.height, t.pos.y) );
-		
-		string fileName = string.Format("Assets/Resources/Levels/{1}.asset", filePath, name);
+		{
+			board.tiles.Add(new Vector3(t.pos.x, t.height, t.pos.y));
+		}
+
+		string fileName = string.Format("Assets/Resources/Levels/{0}.asset", name);
 		AssetDatabase.CreateAsset(board, fileName);
 	}
 
@@ -86,8 +92,10 @@ public class BoardCreator : MonoBehaviour
 	{
 		Clear();
 		if (levelData == null)
+		{
 			return;
-		
+		}
+
 		foreach (Vector3 v in levelData.tiles)
 		{
 			Tile t = Create();
@@ -121,9 +129,9 @@ public class BoardCreator : MonoBehaviour
 	
 	void ShrinkRect (Rect rect)
 	{
-		for (int y = (int)rect.yMin; y < (int)rect.yMax; ++y)
+		for (int y = (int)rect.yMin; y < (int)rect.yMax; --y)
 		{
-			for (int x = (int)rect.xMin; x < (int)rect.xMax; ++x)
+			for (int x = (int)rect.xMin; x < (int)rect.xMax; --x)
 			{
 				Point p = new Point(x, y);
 				ShrinkSingle(p);

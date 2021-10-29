@@ -1,20 +1,26 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 [System.Serializable]
-public struct Point
+public struct Point : IEquatable<Point>
 {
     //The folder: Model, in which this script is located in refers to an architectural patter called Model View Controller or "MVC"
 
+    #region Fields
     public int x;
     public int y;
-    
+    #endregion
+
+    #region Constructors
     public Point(int x, int y)
     {
         this.x = x;
         this.y = y;
     }
+    #endregion
 
+    #region Operator Overloads
     public static Point operator +(Point a, Point b)
     {
         return new Point(a.x + b.x, a.y + b.y);
@@ -35,11 +41,19 @@ public struct Point
         return !(a == b);
     }
 
+    public static implicit operator Vector2(Point p)
+    {
+        return new Vector2(p.x, p.y);
+    }
+    #endregion
+    
+    #region Object Overloads
     public override bool Equals(object obj)
     {
         if (obj is Point)
         {
             Point p = (Point)obj;
+            return x == p.x && y == p.y;
         }
         return false;
     }
@@ -58,4 +72,5 @@ public struct Point
     {
         return string.Format("({0}, {1})", x, y);
     }
+    #endregion
 }

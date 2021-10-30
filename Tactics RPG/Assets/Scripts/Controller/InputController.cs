@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public class InputController : MonoBehaviour
 {
+    public static event EventHandler<InfoEventArgs<Point>> moveEvent;
+    public static event EventHandler<InfoEventArgs<int>> fireEvent; 
+    
+    private Repeater _hor = new Repeater("Horizontal");
+    private Repeater _ver = new Repeater("Vertical");
+    private string[] _buttons = new string[] { "Fire1", "Fire2", "Fire3" };
     void Update()
     {
         int x = _hor.Update();
@@ -26,15 +32,7 @@ public class InputController : MonoBehaviour
                 }
             }
         }
-        
     }
-
-    private Repeater _hor = new Repeater("Horizontal");
-    private Repeater _ver = new Repeater("Vertical");
-
-    public static event EventHandler<InfoEventArgs<Point>> moveEvent;
-    public static event EventHandler<InfoEventArgs<int>> fireEvent; 
-    private string[] _buttons = new string[] { "Fire1", "Fire2", "Fire3" };
 }
 
 class Repeater
@@ -73,3 +71,11 @@ class Repeater
         return retValue;
     }
 }
+
+
+
+// This script comes from a tutorial by Jonathan Parham
+// His tutorial can be found here: http://theliquidfire.com/2015/05/24/user-input-controller/
+// Further Modification was made by referencing the updated scrips on Jonathan's Repo
+// His Repo can be found here: https://bitbucket.org/jparham/blogtacticsrpg/src/master/
+// Any additional modification was made most likely at the behest of Rider.

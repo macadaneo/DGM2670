@@ -10,7 +10,15 @@ public class Tile : MonoBehaviour
     #region Fields / Properties
     public Point pos;
     public int height;
-    public Vector3 center { get { return new Vector3(pos.x, height * stepHeight, pos.y); }}
+    public Vector3 center
+    {
+        get
+        {
+            return new Vector3(pos.x, height * stepHeight, pos.y);
+        }
+        
+    }
+    
     public GameObject content;
     [HideInInspector] public Tile prev;
     [HideInInspector] public int distance;
@@ -50,3 +58,9 @@ public class Tile : MonoBehaviour
     }
     #endregion
 }
+
+// This script comes from a tutorial by Jonathan Parham
+// His tutorial can be found here: http://theliquidfire.com/2015/05/18/tactics-rpg-board-generator/
+// Further Modification was made by referencing the updated scrips on Jonathan's Repo
+// His Repo can be found here: https://bitbucket.org/jparham/blogtacticsrpg/src/master/
+// Any additional modification was made most likely at the behest of Rider.

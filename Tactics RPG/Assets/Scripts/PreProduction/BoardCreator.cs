@@ -22,7 +22,7 @@ public class BoardCreator : MonoBehaviour
 		{
 			if (_marker == null)
 			{
-				GameObject instance = Instantiate(tileSelectionIndicatorPrefab);
+				GameObject instance = Instantiate(tileSelectionIndicatorPrefab) as GameObject;
 				_marker = instance.transform;
 			}
 			return _marker;
@@ -129,9 +129,9 @@ public class BoardCreator : MonoBehaviour
 	
 	void ShrinkRect (Rect rect)
 	{
-		for (int y = (int)rect.yMin; y < (int)rect.yMax; --y)
+		for (int y = (int)rect.yMin; y < (int)rect.yMax; ++y)
 		{
-			for (int x = (int)rect.xMin; x < (int)rect.xMax; --x)
+			for (int x = (int)rect.xMin; x < (int)rect.xMax; ++x)
 			{
 				Point p = new Point(x, y);
 				ShrinkSingle(p);
@@ -168,7 +168,9 @@ public class BoardCreator : MonoBehaviour
 	void ShrinkSingle (Point p)
 	{
 		if (!tiles.ContainsKey(p))
+		{
 			return;
+		}
 		
 		Tile t = tiles[p];
 		t.Shrink();
@@ -192,3 +194,8 @@ public class BoardCreator : MonoBehaviour
 	}
 	#endregion
 }
+// This script comes from a tutorial by Jonathan Parham
+// His tutorial can be found here: http://theliquidfire.com/2015/05/18/tactics-rpg-board-generator/
+// Further Modification was made by referencing the updated scrips on Jonathan's Repo
+// His Repo can be found here: https://bitbucket.org/jparham/blogtacticsrpg/src/master/
+// Any additional modification was made most likely at the behest of Rider.

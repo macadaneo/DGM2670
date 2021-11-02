@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -17,6 +18,14 @@ public class Board : MonoBehaviour
             t.Load(data.tiles[i]);
             tiles.Add(t.pos, t);
         }
+    }
+
+    public List<Tile> Search(Tile start, Func<Tile, Tile, bool> addTile)
+    {
+        List<Tile> retValue = new List<Tile>();
+        retValue.Add(start);
+        // Add more code here
+        return retValue;
     }
 }
 

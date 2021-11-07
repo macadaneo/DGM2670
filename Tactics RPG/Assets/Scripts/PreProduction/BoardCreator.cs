@@ -14,6 +14,7 @@ public class BoardCreator : MonoBehaviour
 	[SerializeField] int height = 8;
 	[SerializeField] Point pos;
 	[SerializeField] LevelData levelData;
+	
 	Dictionary<Point, Tile> tiles = new Dictionary<Point, Tile>();
 
 	Transform marker

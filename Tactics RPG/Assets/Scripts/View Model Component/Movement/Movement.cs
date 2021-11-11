@@ -1,27 +1,46 @@
-using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Net.Sockets;
 
-public class Movement : MonoBehaviour
+public abstract class Movement : MonoBehaviour
 {
+    #region Properties
+
+    public Vector3 localEulerAngles;
     public int range;
     public int jumpHeight;
     protected Unit unit;
     protected Transform jumper;
+    
+    #endregion
 
-    protected void Awake()
+    #region MonoBehaviour
+    protected virtual void Awake ()
     {
         unit = GetComponent<Unit>();
         jumper = transform.Find("Jumper");
     }
+    #endregion
 
-    public virtual bool ExpandSearch(Tile from, Tile to)
+    #region Public
+    public virtual List<Tile> GetTilesInRange (Board board)
+    {
+        List<Tile> retValue = board.Search( unit.tile, ExpandSearch );
+        Filter(retValue);
+        return retValue;
+    }
+
+    public abstract IEnumerator Traverse (Tile tile);
+    #endregion
+
+    #region Protected
+    protected virtual bool ExpandSearch (Tile from, Tile to)
     {
         return (from.distance + 1) <= range;
     }
 
-    protected virtual void Filter(List<Tile> tiles)
+    protected virtual void Filter (List<Tile> tiles)
     {
         for (int i = tiles.Count - 1; i >= 0; --i)
         {
@@ -31,4 +50,36 @@ public class Movement : MonoBehaviour
             }
         }
     }
+    
+    //this commented code makes sure that units don't spin 270 degrees in one direction in order to turn 90 degrees in the other direction.
+    // but the TransformLocalEuler seems to be discontinued from a previous version of Unity. I hope the game works without it.
+
+     protected virtual IEnumerator Turn(Directions dir)
+    {
+        Transform.localEulerAngles t =
+            (TransformLocalEulerTweener)transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
+
+        // When rotating between North and West, we must make an exception so it looks like the unit rotates the most efficient way (since 0 and 360 are treated the same)
+        
+        if (Mathf.Approximately(t.startTweenValue.y, 0f) && Mathf.Approximately(t.endTweenValue.y, 270f))
+        {
+            t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
+        }
+        else if (Mathf.Approximately(t.startTweenValue.y, 270) && Mathf.Approximately(t.endTweenValue.y, 0))
+        {
+            t.endTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
+        }
+
+        unit.dir = dir;
+
+        while (t != null)
+        {
+            yield return null;
+        }
+    }
+ 
+ #endregion
+ 
 }
+
+

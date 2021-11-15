@@ -52,11 +52,9 @@ public abstract class Movement : MonoBehaviour
     }
     
     //this commented code makes sure that units don't spin 270 degrees in one direction in order to turn 90 degrees in the other direction.
-    // but the TransformLocalEuler seems to be discontinued from a previous version of Unity. I hope the game works without it.
-
-     protected virtual IEnumerator Turn(Directions dir)
+    protected virtual IEnumerator Turn(Directions dir)
     {
-        Transform.localEulerAngles t =
+        TransformLocalEulerTweener t =
             (TransformLocalEulerTweener)transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
 
         // When rotating between North and West, we must make an exception so it looks like the unit rotates the most efficient way (since 0 and 360 are treated the same)

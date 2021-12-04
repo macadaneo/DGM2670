@@ -113,6 +113,6 @@ MonoBehaviour:
     x: 0
     y: 0
   height: 0
-  content: {fileID: 7241744797893997317}
+  content: {fileID: 0}
   prev: {fileID: 0}
   distance: 0

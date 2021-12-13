@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 43062212}
   board: {fileID: 1644751144}
-  levelData: {fileID: 11400000, guid: 086457085358dd6408573cc98b51572c, type: 2}
+  levelData: {fileID: 11400000, guid: fafb1ac6974f72f40a83f6fae832472e, type: 2}
   tileSelectionIndicator: {fileID: 1716823278}
   pos:
     x: 0

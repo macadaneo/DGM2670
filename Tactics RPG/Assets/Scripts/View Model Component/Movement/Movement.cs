@@ -1,46 +1,36 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using UnityEngine.Assertions.Must;
 
 public abstract class Movement : MonoBehaviour
 {
-    #region Properties
-
-    public Vector3 localEulerAngles;
     public int range;
     public int jumpHeight;
     protected Unit unit;
     protected Transform jumper;
-    
-    #endregion
 
-    #region MonoBehaviour
-    protected virtual void Awake ()
+    protected void Awake()
     {
         unit = GetComponent<Unit>();
-        jumper = transform.Find("Jumper");
+        jumper = transform.FindChild("Jumper");
     }
-    #endregion
 
-    #region Public
-    public virtual List<Tile> GetTilesInRange (Board board)
+    public virtual List<Tile> GetTilesInRange(Board board)
     {
-        List<Tile> retValue = board.Search( unit.tile, ExpandSearch );
+        List<Tile> retValue = board.Search(unit.tile, ExpandSearch);
         Filter(retValue);
         return retValue;
     }
 
-    public abstract IEnumerator Traverse (Tile tile);
-    #endregion
-
-    #region Protected
-    protected virtual bool ExpandSearch (Tile from, Tile to)
+    protected virtual bool ExpandSearch(Tile from, Tile to)
     {
         return (from.distance + 1) <= range;
     }
 
-    protected virtual void Filter (List<Tile> tiles)
+    protected virtual void Filter(List<Tile> tiles)
     {
         for (int i = tiles.Count - 1; i >= 0; --i)
         {
@@ -50,15 +40,15 @@ public abstract class Movement : MonoBehaviour
             }
         }
     }
-    
-    //this commented code makes sure that units don't spin 270 degrees in one direction in order to turn 90 degrees in the other direction.
-    protected virtual IEnumerator Turn(Directions dir)
-    {
-        TransformLocalEulerTweener t =
-            (TransformLocalEulerTweener)transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
 
-        // When rotating between North and West, we must make an exception so it looks like the unit rotates the most efficient way (since 0 and 360 are treated the same)
-        
+    public abstract IEnumerator Traverse(Tile tile);
+
+    protected virtual IEnumerator Turn (Directions dir)
+    {
+        TransformLocalEulerTweener t = (TransformLocalEulerTweener)transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
+		
+        // When rotating between North and West, we must make an exception so it looks like the unit
+        // rotates the most efficient way (since 0 and 360 are treated the same)
         if (Mathf.Approximately(t.startTweenValue.y, 0f) && Mathf.Approximately(t.endTweenValue.y, 270f))
         {
             t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
@@ -75,9 +65,6 @@ public abstract class Movement : MonoBehaviour
             yield return null;
         }
     }
- 
- #endregion
- 
 }
 
 

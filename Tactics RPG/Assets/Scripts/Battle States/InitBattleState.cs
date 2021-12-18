@@ -21,7 +21,7 @@ public class InitBattleState : BattleState
 
     void SpawnTestUnits()
     {
-        System.Type[] components = new System.Type[] { typeof(WalkMovement) };
+        System.Type[] components = new System.Type[] { typeof(WalkMovement), typeof(FlyMovement), typeof(TeleportMovement) };
         for (int i = 0; i < 3; i++)
         {
             GameObject instance = Instantiate(owner.heroPrefab) as GameObject;

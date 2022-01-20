@@ -14,7 +14,7 @@ public abstract class State : MonoBehaviour
         RemoveListeners();
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         RemoveListeners();
     }

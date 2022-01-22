@@ -84,7 +84,9 @@ public class ConversationController : MonoBehaviour
         }
         canvas.gameObject.SetActive(false);
         if (completeEvent != null)
+        {
             completeEvent(this, EventArgs.Empty);
+        }
     }
 
     void MovePanel(ConversationPanel obj, string pos)

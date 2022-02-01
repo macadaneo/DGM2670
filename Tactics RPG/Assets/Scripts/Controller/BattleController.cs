@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public class BattleController : StateMachine 
 {
     public CameraRig cameraRig;
@@ -7,9 +8,11 @@ public class BattleController : StateMachine
     public LevelData levelData;
     public Transform tileSelectionIndicator;
     public Point pos;
+    public AbilityMenuPanelController AbilityMenuPanelController;
+    public Turn turn = new Turn();
+    public List<Unit> units = new List<Unit>();
 
     public GameObject heroPrefab;
-    public Unit currentUnit;
     public Tile currentTile
     {
         get

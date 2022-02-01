@@ -380,6 +380,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3092261639537906914, guid: 6c9fc8f8e7eb6b44286bd981b9b4eeca, type: 3}
+      propertyPath: m_Text
+      value: You never should have come here!
+      objectReference: {fileID: 0}
     - target: {fileID: 5642759281859335760, guid: 6c9fc8f8e7eb6b44286bd981b9b4eeca, type: 3}
       propertyPath: positionList.Array.data[2].name
       value: Show Bottom

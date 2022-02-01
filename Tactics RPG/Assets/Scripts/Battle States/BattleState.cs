@@ -1,8 +1,34 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BattleState : State
 {
     protected BattleController owner;
+
+    public AbilityMenuPanelController AbilityMenuPanelController
+    {
+        get
+        {
+            return owner.AbilityMenuPanelController;
+        }
+    }
+
+    public Turn turn
+    {
+        get
+        {
+            return owner.turn;
+        }
+    }
+
+    public List<Unit> units
+    {
+        get
+        {
+            return owner.units;
+        }
+    }
     public CameraRig cameraRig
     {
         get { return owner.cameraRig; }

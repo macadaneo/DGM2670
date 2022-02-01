@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InitBattleState : BattleState
@@ -31,6 +32,8 @@ public class InitBattleState : BattleState
             Unit unit = instance.GetComponent<Unit>();
             unit.Place((board.GetTile(p)));
             unit.Match();
+            
+            units.Add(unit);
 
             Movement m = instance.AddComponent(components[i]) as Movement;
             m.range = 5;

@@ -228,7 +228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -493,7 +493,6 @@ GameObject:
   - component: {fileID: 9111349726837979968}
   - component: {fileID: 9111349726837979971}
   - component: {fileID: 9111349726837979970}
-  - component: {fileID: 9111349726837979981}
   - component: {fileID: 9111349726837979980}
   - component: {fileID: 9111349726837979974}
   m_Layer: 5
@@ -602,18 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &9111349726837979981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9111349726837979982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dca543483e40bb4eb0201ad744707d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9111349726837979980
 MonoBehaviour:
   m_ObjectHideFlags: 0

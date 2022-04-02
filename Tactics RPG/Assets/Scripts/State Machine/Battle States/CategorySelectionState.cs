@@ -9,13 +9,20 @@ public class CategorySelectionState : BaseAbilityMenuState
     {
         if (menuOptions == null)
         {
-            menuTitle = "Action";
+            menuOptions = new List<string>();
+        }
+        else
+        {
+            menuOptions.Clear();
+        }
+        
+        menuTitle = "Action";
             menuOptions = new List<string>(3);
             menuOptions.Add("Attack");
             menuOptions.Add("White Magic");
             menuOptions.Add("Black Magic");
-        }
-        AbilityMenuPanelController.Show(menuTitle, menuOptions);
+            
+            AbilityMenuPanelController.Show(menuTitle, menuOptions);
     }
 
     protected override void Confirm()

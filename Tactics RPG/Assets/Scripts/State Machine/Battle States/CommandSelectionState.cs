@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CommandSelectionState : BaseAbilityMenuState
 {
-    protected override void LoadMenu()
+    protected override void LoadMenu ()
     {
         if (menuOptions == null)
         {
@@ -14,13 +14,13 @@ public class CommandSelectionState : BaseAbilityMenuState
             menuOptions.Add("Action");
             menuOptions.Add("Wait");
         }
-        
+
         AbilityMenuPanelController.Show(menuTitle, menuOptions);
         AbilityMenuPanelController.SetLocked(0, turn.hasUnitMoved);
         AbilityMenuPanelController.SetLocked(1, turn.hasUnitActed);
     }
 
-    protected override void Confirm()
+    protected override void Confirm ()
     {
         switch (AbilityMenuPanelController.selection)
         {
